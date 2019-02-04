@@ -9,7 +9,7 @@ pipeline {
       steps {
         withCredentials(bindings: [sshUserPrivateKey(credentialsId: 'jk_dev', \
                                                            keyFileVariable: 'key')]) {
-          sh ('build.sh')
+          sh ('./build.sh')
         }
       }
     }
