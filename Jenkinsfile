@@ -9,7 +9,7 @@ pipeline {
             string(credentialsId: 'chat_id', variable: 'ChatID'),
             string(credentialsId: 'tg_token', variable: 'Token')
           ]){
-            sh ('./build.sh --ChatID= ${ChatID} --Token= {$Token}')
+            sh ('./build.sh --c= ${ChatID} --t= {$Token}')
           }
         }
       }
