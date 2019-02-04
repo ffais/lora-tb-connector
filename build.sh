@@ -2,7 +2,7 @@ set +x
 cat $key > sshkey
 chmod 600 sshkey
 TimeLim=240
-APP="nb-tb-connector"
+APP="nb-tb-connector-dev"
 TSTAMP=$(date +%Y.%m.%d-%H.%M.%S)
 TSSRV="$TSTAMP $APP:"
 RELEASE=$(sed -E -n '/<artifactId>(lora-tb-connector)<\/artifactId>.*/{n;p}' pom.xml | grep -Po '\d\.\d')

@@ -1,7 +1,7 @@
 pipeline {
   agent any
   environment {
-        ChatID     = credentials('chat_id')
+        ChatID = credentials('chat_id')
         Token = credentials('tg_token')
     }
   stages {
