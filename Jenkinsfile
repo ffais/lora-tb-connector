@@ -3,11 +3,15 @@ pipeline {
   environment {
         ChatID = credentials('chat_id')
         Token = credentials('tg_token')
-
+  }
   stages {
     stage('Build') {
       steps {
-        withCredentials(bindings: [sshUserPrivateKey(credentialsId: 'jk_dev', keyFileVariable: 'key')]) {
+        withCredentials(bindings: [
+          sshUserPrivateKey(credentialsId: 'jk_dev', keyFileVariable: 'key'),
+          string(credentialsId: 'chat_id', keyFileVariable: 'ChatID'),
+          string(credentialsId: 'tg_token', keyFileVariable: 'Token')
+        ]) {
             sh ('./build.sh')
         }
       }
@@ -22,6 +26,5 @@ pipeline {
         echo 'Deploying....'
       }
     }
-  }
   }
 }
