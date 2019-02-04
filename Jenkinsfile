@@ -8,10 +8,7 @@ pipeline {
     stage('Build') {
       steps {
         withCredentials(bindings: [sshUserPrivateKey(credentialsId: 'jk_dev', keyFileVariable: 'key')]) {
-          withCredentials([
-            string(credentialsId: 'chat_id', variable: 'ChatID')
-            string(credentialsId: 'tg_token', variable: 'Token')
-          ]){
+          withCredentials([string(credentialsId: 'chat_id', variable: 'ChatID')]) {
             sh ('./build.sh')
           }
         }
