@@ -1,4 +1,17 @@
 set +x
+for i in "$@"
+do
+case $i in
+    --ChatID=*)
+    ChatID="${i#*=}"
+    shift # past argument=value
+    ;;
+    --Token=*)
+    Token="${i#*=}"
+    shift # past argument=value
+    ;;
+esac
+done
 cat $key > sshkey
 chmod 600 sshkey
 TimeLim=240
