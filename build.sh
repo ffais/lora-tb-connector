@@ -10,7 +10,7 @@ echo $RELEASE
 Msg="$TSSRV Build in corso"
 curl -s — max-time $TimeLim -d "chat_id=${ChatID}&disable_web_page_preview=1&text=${Msg}" "https://api.telegram.org/bot${Token}/sendMessage" > /dev/null
 echo $Msg
-ssh -i sshkey -o "StrictHostKeyChecking no" dev@52.209.70.46 'service lora-tb-connector stop && cd /home/dev/sources/lora-tb-connector && git checkout dev && git pull origin dev && mvn install && service lora-tb-connector start '
+ssh -i sshkey -o "StrictHostKeyChecking no" dev@52.209.70.46 'sudo service lora-tb-conn stop && /home/dev/sources/deploy-lora-tb-conn.sh && echo "VER='${RELEASE}'" > /home/dev/lora-tb-connector-env && sudo service lora-tb-conn start '
 if [ $? -eq 0 ]
 then
   Msg="$TSSRV Aggiornamento completato"
