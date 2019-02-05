@@ -2,13 +2,11 @@ pipeline {
   agent any
   stages {
     stage('Build') {
-      environment {
-            CHAT_ID = credentials('chat_id')
-            TG_TOKEN = credentials('tg_token')
-      }
       steps {
         withCredentials(bindings: [sshUserPrivateKey(credentialsId: 'jk_dev', keyFileVariable: 'key')]) {
+          withCredentials(bindings: [string(credentialsId: 'chat_id', variable: 'CHAT_ID'), string(credentialsId: 'tg_token', variable: 'TG_TOKEN')]){
             sh ('./build.sh')
+          }
         }
       }
     }
