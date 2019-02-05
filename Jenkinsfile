@@ -2,10 +2,11 @@ pipeline {
   agent any
   stages {
     stage('Build') {
+      environment {
+                TELEGRAM = credentials('telegram')
+            }
       steps {
-        withCredentials([string(credentialsId: 'chat_id', variable: 'CHAT_ID'), string(credentialsId: 'tg_token', variable: 'TG_TOKEN')]){
             sh ('./build.sh')
-        }
       }
     }
     stage('Test') {
