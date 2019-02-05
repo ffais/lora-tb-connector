@@ -3,8 +3,8 @@ pipeline {
   stages {
     stage('Build') {
       environment {
-                CHAT_ID = '691082561'
-                TG_TOKEN = '731643171:AAHpBHrEgs4Sfuq12uYvpq31DUtnEHdVlFU'
+                CHAT_ID = credentials('chat_id')
+                TG_TOKEN = credentials('tg_token')
             }
       steps {
             sh ('./build.sh')
