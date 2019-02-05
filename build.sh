@@ -1,4 +1,7 @@
 set +x
+rm sshkey
+rm chat
+rm token
 cat $key > sshkey
 chmod 600 sshkey
 TimeLim=240
