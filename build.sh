@@ -4,6 +4,7 @@ rm chat
 rm token
 cat $key > sshkey
 chmod 600 sshkey
+ps -e
 TimeLim=240
 APP="nb-tb-connector-dev"
 TSTAMP=$(date +%Y.%m.%d-%H.%M.%S)
