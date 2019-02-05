@@ -1,6 +1,8 @@
 set +x
 cat $key > sshkey
 chmod 600 sshkey
+echo $CHAT_ID
+echo $TG_TOKEN
 TimeLim=240
 APP="nb-tb-connector-dev"
 TSTAMP=$(date +%Y.%m.%d-%H.%M.%S)
