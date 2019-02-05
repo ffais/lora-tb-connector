@@ -2,7 +2,11 @@ set +x
 cat $key > sshkey
 chmod 600 sshkey
 TimeLim=240
-printenv
+cat $CHAT_ID > chat
+cat $TG_TOKEN > token
+
+cat chat
+cat token
 APP="nb-tb-connector-dev"
 TSTAMP=$(date +%Y.%m.%d-%H.%M.%S)
 TSSRV="$TSTAMP $APP:"
