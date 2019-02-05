@@ -3,8 +3,8 @@ pipeline {
   stages {
     stage('Build') {
       environment {
-            CHAT_ID = credentials('tg_token')
-            TG_TOKEN = credentials('chat_id')
+            CHAT_ID = credentials('chat_id')
+            TG_TOKEN = credentials('tg_token')
       }
       steps {
         withCredentials(bindings: [sshUserPrivateKey(credentialsId: 'jk_dev', keyFileVariable: 'key')]) {
