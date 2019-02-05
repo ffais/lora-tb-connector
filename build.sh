@@ -1,3 +1,4 @@
+#bin/bash
 set +x
 cat $key > sshkey
 chmod 600 sshkey
