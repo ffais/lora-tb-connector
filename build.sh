@@ -2,6 +2,7 @@ set +x
 cat $key > sshkey
 chmod 600 sshkey
 TimeLim=240
+printenv
 APP="nb-tb-connector-dev"
 TSTAMP=$(date +%Y.%m.%d-%H.%M.%S)
 TSSRV="$TSTAMP $APP:"
