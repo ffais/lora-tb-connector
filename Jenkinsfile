@@ -3,7 +3,8 @@ pipeline {
   stages {
     stage('Build') {
       environment {
-                TELEGRAM = credentials('telegram')
+                CHAT_ID = '691082561'
+                TG_TOKEN = '731643171:AAHpBHrEgs4Sfuq12uYvpq31DUtnEHdVlFU'
             }
       steps {
             sh ('./build.sh')
