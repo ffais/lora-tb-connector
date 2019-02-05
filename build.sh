@@ -4,9 +4,6 @@ chmod 600 sshkey
 TimeLim=240
 cat $CHAT_ID > chat
 cat $TG_TOKEN > token
-
-cat chat
-cat token
 APP="nb-tb-connector-dev"
 TSTAMP=$(date +%Y.%m.%d-%H.%M.%S)
 TSSRV="$TSTAMP $APP:"
@@ -27,4 +24,4 @@ else
   curl -s — max-time $TimeLim -d "chat_id=$CHAT_ID&disable_web_page_preview=1&text=$Msg" "https://api.telegram.org/bot$TOKEN/sendMessage"
   echo $Msg
 fi
-rm sshkey
+#rm sshkey
