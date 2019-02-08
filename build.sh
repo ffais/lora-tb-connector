@@ -1,4 +1,4 @@
-#bin/bash
+#!/bin/sh
 cat $key > sshkey
 chmod 600 sshkey
 TimeLim=240
