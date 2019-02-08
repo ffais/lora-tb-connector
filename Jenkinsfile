@@ -5,7 +5,6 @@ pipeline {
       environment {
         CHAT_ID = credentials('chatid')
         TG_TOKEN = credentials('tg_token')
-        TEST = credentials('test')
         IP = credentials('platform-test-ip')
         USR = credentials('platform-test-user')
       }
