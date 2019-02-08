@@ -36,7 +36,8 @@ RELEASE=$(sed -E -n '/<artifactId>(lora-tb-connector)<\/artifactId>.*/{n;p}' pom
 echo $RELEASE
 Msg="$TSSRV Build in corso"
 URL="https://api.telegram.org/bot${TG_TOKEN}/sendMessage"
-curl -s -X POST $URL -d "chat_id=${CHAT_ID}" -d "text=$Msg" 
+CHAT="chat_id=${CHAT_ID}"
+curl -s -X POST $URL -d $CHAT -d "text=$Msg" 
 #curl -s — max-time $TimeLim -d "chat_id=$CHAT_ID&disable_web_page_preview=1&text=$Msg" "https://api.telegram.org/bot$TG_TOKEN/sendMessage"
 echo $Msg
 #ssh -i sshkey -o "StrictHostKeyChecking no" dev@52.209.70.46 'sudo service lora-tb-conn stop && /home/dev/sources/deploy-lora-tb-conn.sh && echo "VER='${RELEASE}'" > /home/dev/lora-tb-connector-env && sudo service lora-tb-conn start '
