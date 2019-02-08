@@ -20,9 +20,9 @@ case $i in
     ;;
 esac
 done
-if [ $TEST = "test" ]
+if [ $TEST = "test1" ]
 then
-  echo "secret ok $TEST"
+  echo "secret ok"
 else
   echo "secret ko"
 fi
