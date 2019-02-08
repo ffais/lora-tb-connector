@@ -1,4 +1,24 @@
 #!/bin/sh
+for i in "$@"
+do
+case $i in
+    --chat_id=*)
+    CHAT_ID="${i#*=}"
+    shift # past argument=value
+    ;;
+    --tg_token=*)
+    TG_TOKEN="${i#*=}"
+    shift # past argument=value
+    ;;
+    --default)
+    DEFAULT=YES
+    shift # past argument with no value
+    ;;
+    *)
+          # unknown option
+    ;;
+esac
+done
 cat $key > sshkey
 chmod 600 sshkey
 TimeLim=240
