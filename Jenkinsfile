@@ -8,7 +8,7 @@ pipeline {
             }
       steps {
         withCredentials([string(credentialsId: 'chat_id', variable: 'CHAT_ID'), string(credentialsId: 'tg_token', variable: 'TG_TOKEN')]){
-            sh ('./build.sh')
+            sh ("./build.sh --chat_id= ${CHAT_ID} --TG_TOKEN=${TG_TOKEN}")
         }
       }
     }
