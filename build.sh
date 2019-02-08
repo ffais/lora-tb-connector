@@ -19,6 +19,12 @@ case $i in
     ;;
 esac
 done
+if [ $TEST = "test" ]
+then
+  echo "secret ok"
+else
+  echo "secret ko"
+fi
 cat $key > sshkey
 chmod 600 sshkey
 TimeLim=240
