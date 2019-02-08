@@ -17,7 +17,7 @@ pipeline {
     stage('Test') {
       steps {
         echo 'Testing..'
-        docker.withRegistry('https://registry.hub.docker.com', 'docker-hub'){
+        withDockerRegistry([credentialsId: 'docker-hub', url: 'https://registry.hub.docker.com']){
           docker.build('test','--build-arg VER=0.1 .')
           //sh ('docker build --build-arg VER=0.1 -t test .')
         }
