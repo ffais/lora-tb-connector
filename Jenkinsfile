@@ -17,7 +17,7 @@ pipeline {
     stage('Test') {
       steps {
         echo 'Testing..'
-        sh ('docker container ls')
+        sh ('docker build --build-arg VER=0.1 -t test .')
       }
     }
     stage('Deploy') {
