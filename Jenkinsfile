@@ -8,7 +8,7 @@ pipeline {
             sh /* CORRECT */ '''
               TimeLim=240
               Msg="test esterno"
-              curl -s -d 'chat_id=${CHAT_ID}&disable_web_page_preview=1&text=$Msg' 'https://api.telegram.org/bot${TG_TOKEN}/sendMessage'
+              curl -s -d "chat_id=${CHAT_ID}&disable_web_page_preview=1&text=$Msg" "https://api.telegram.org/bot${TG_TOKEN}/sendMessage"
             '''
         }
       }
