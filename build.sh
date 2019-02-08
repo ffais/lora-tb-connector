@@ -1,4 +1,5 @@
 #!/bin/sh
+set +x
 for i in "$@"
 do
 case $i in
