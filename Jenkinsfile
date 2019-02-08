@@ -10,7 +10,8 @@ pipeline {
               TimeLim=240
               Msg="test esterno"
               URL="https://api.telegram.org/bot$TG_TOKEN/sendMessage"
-              curl -s -X POST $URL -d chat_id=$CHAT_ID -d text="$Msg" > /dev/null
+              CHAT="chat_id=${CHAT_ID}"
+              curl -s -X POST $URL -d $CHAT -d "text=$Msg" > /dev/null
             '''
         }
       }
