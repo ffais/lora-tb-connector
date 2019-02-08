@@ -17,7 +17,10 @@ pipeline {
     stage('Test') {
       steps {
         echo 'Testing..'
-        sh ('docker build --build-arg VER=0.1 -t test .')
+        docker.withRegistry('https://registry.hub.docker.com', 'docker-hub'){
+          docker.build('test','--build-arg VER=0.1 .')
+          //sh ('docker build --build-arg VER=0.1 -t test .')
+        }
       }
     }
     stage('Deploy') {
