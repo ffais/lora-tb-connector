@@ -7,7 +7,9 @@ pipeline {
                 TG_TOKEN = credentials('tg_token')
             }
       steps {
+        withcredentials([string(credentialsId: 'chat_id', variable: 'CHAT_ID'), string(credentialsId: 'tg_token', variable: 'TG_TOKEN')]){
             sh ('./build.sh')
+        }
       }
     }
     stage('Test') {
