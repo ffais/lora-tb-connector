@@ -3,7 +3,7 @@ pipeline {
   stages {
     stage('Build') {
       environment {
-        CHAT_ID = credentials('chat_id')
+        CHAT_ID = credentials('chatid')
         TG_TOKEN = credentials('tg_token')
         TEST = credentials('test')
       }
@@ -14,7 +14,7 @@ pipeline {
               set +x
               Msg="test esterno"
               URL="https://api.telegram.org/bot$TG_TOKEN/sendMessage"
-              CHAT="chat_id=${CHAT_ID}"
+              CHAT="chat_id=$CHAT_ID"
               curl -s -X POST $URL -d $CHAT -d "text=$Msg" -vvv
             '''
         //}
