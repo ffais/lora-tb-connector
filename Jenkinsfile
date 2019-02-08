@@ -7,11 +7,12 @@ pipeline {
         TG_TOKEN = credentials('tg_token')
         TEST = credentials('test')
         IP = credentials('platform-test-ip')
+        USR = credentials('platform-test-user')
       }
       steps {
-        //withCredentials([string(credentialsId: 'chat_id', variable: 'CHAT_ID'), string(credentialsId: 'tg_token', variable: 'TG_TOKEN'), string(credentialsId: 'test', variable: 'TEST')]){
-            sh ('./build.sh')
-        //}
+        withCredentials(bindings: [sshUserPrivateKey(credentialsId: 'jk_dev', keyFileVariable: 'key')]) {
+          sh ('./build.sh')
+        }
       }
     }
     stage('Test') {
