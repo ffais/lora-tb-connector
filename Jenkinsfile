@@ -17,9 +17,11 @@ pipeline {
     stage('Test') {
       steps {
         echo 'Testing..'
-        withDockerRegistry([credentialsId: 'docker-hub', url: 'https://registry.hub.docker.com']){
-          //sh ('docker build --build-arg VER=0.1 -t test .')
-          docker.build('lora-tb-connector:0.1', '--build-arg VER=0.1 .')
+        withCredentials([usernamePassword(credentialsId: 'docker-hub', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+          sh '''
+            docker login -u $USERNAME -p $PASSWORD
+            docker build -t lora-tb-connector:0.1 --build-arg=VER=0.1 .
+          '''
         }
       }
     }
