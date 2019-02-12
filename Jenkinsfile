@@ -31,7 +31,7 @@ pipeline {
     }
     stage('Test') {
       when {
-                expression { skipRemainingStages == 'true' }
+                expression { !skipRemainingStages }
             }
       steps {
         echo 'Testing..'
