@@ -1,3 +1,4 @@
+def skipRemainingStages = false
 pipeline {
   agent any
   stages {
@@ -10,16 +11,21 @@ pipeline {
       }
       steps {
         withCredentials([usernamePassword(credentialsId: 'docker-hub', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-          sh '''
-            docker login -u $USERNAME -p $PASSWORD
-            docker build -t lora-tb-connector:0.1 --build-arg VER=0.1 .
-          '''
+          def statusCode = sh build.sh
+          echo statusCode
         }
       }
     }
     stage('Test') {
+      when {
+                expression { skipRemainingStages == 'false' }
+            }
       steps {
         echo 'Testing..'
+        sh '''
+          docker run lora-tb-connector:0.1
+
+        '''
       }
     }
     stage('Deploy') {
