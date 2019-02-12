@@ -11,8 +11,9 @@ pipeline {
       }
       steps {
         withCredentials([usernamePassword(credentialsId: 'docker-hub', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-          rc = sh(script: build.sh, returnStatus: true)
-          echo $rc
+          SCRIPT_PATH = "./build.sh"
+          rc = sh(script: "${SCRIPT_PATH}", returnStatus: true)
+          echo rc
         }
       }
     }
