@@ -21,7 +21,9 @@ pipeline {
             }
       steps {
         echo 'Testing..'
-        withCredentials(bindings: [sshUserPrivateKey(credentialsId: 'jk_dev', keyFileVariable: 'key')]) {
+        withCredentials(bindings: [sshUserPrivateKey(credentialsId: 'jk_dev', keyFileVariable: 'key')
+                                   file(credentialsId: 'lora-tb-connector-env', variable: 'env')
+        ]) {
           sh ('./test.sh')
         }
       }

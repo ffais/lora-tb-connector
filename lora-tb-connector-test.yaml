@@ -2,6 +2,7 @@ version: "3.7"
 services:
   lora-tb-connector:
     image: lora-tb-connector:0.1
+    container_name: lora-tb-connector
     ports:
       - 5050
     env_file:
