@@ -12,7 +12,7 @@ pipeline {
       steps {
         withCredentials([usernamePassword(credentialsId: 'docker-hub', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
           SCRIPT_PATH = "./build.sh"
-          rc = sh(script: "${SCRIPT_PATH}", returnStatus: true)
+          def rc = sh(script: "${SCRIPT_PATH}", returnStatus: true)
           echo rc
         }
       }
