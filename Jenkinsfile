@@ -11,7 +11,7 @@ pipeline {
       }
       steps {
         withCredentials([usernamePassword(credentialsId: 'docker-hub', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-          def result = sh returnStatus: true, script: './build.sh'
+          sh ('./build.sh')
         }
       }
     }
@@ -23,7 +23,6 @@ pipeline {
         echo 'Testing..'
         sh '''
           docker run lora-tb-connector:0.1
-
         '''
       }
     }
