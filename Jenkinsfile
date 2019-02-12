@@ -21,9 +21,9 @@ pipeline {
             }
       steps {
         echo 'Testing..'
-        sh '''
-          docker run lora-tb-connector:0.1
-        '''
+        withCredentials(bindings: [sshUserPrivateKey(credentialsId: 'jk_dev', keyFileVariable: 'key')]) {
+          sh ('./test.sh')
+        }
       }
     }
     stage('Deploy') {
