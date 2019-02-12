@@ -11,7 +11,7 @@ pipeline {
       }
       steps {
         withCredentials([usernamePassword(credentialsId: 'docker-hub', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-          def statusCode = sh ('build.sh'), return returnStatus:true
+          def statusCode = sh ('build.sh'), returnStatus:true
           echo statusCode
         }
       }
