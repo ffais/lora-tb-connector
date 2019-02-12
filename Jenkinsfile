@@ -11,8 +11,18 @@ pipeline {
       }
       steps {
         withCredentials([usernamePassword(credentialsId: 'docker-hub', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-          rc = sh(script: './build.sh', returnStatus: true)
+          rc = sh(script: "./build.sh", returnStatus: true)
+          // check exit code
+          sh "echo \"exit code is : ${rc}\""
 
+          if (rc != 0)
+          {
+              sh "echo 'exit code is NOT zero'"
+          }
+          else
+          {
+              sh "echo 'exit code is zero'"
+          }
         }
       }
     }
