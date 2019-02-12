@@ -19,6 +19,7 @@ pipeline {
             if (rc != 0)
             {
                 sh "echo 'exit code is NOT zero'"
+                skipRemainingStages = true
             }
             else
             {
@@ -30,7 +31,7 @@ pipeline {
     }
     stage('Test') {
       when {
-                expression { skipRemainingStages == 'false' }
+                expression { skipRemainingStages == 'true' }
             }
       steps {
         echo 'Testing..'
