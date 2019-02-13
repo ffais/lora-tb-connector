@@ -27,4 +27,4 @@ else
 fi
 rm sshkey
 echo $statusCode
-return $statusCode
+exit $statusCode
