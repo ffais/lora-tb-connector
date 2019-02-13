@@ -1,13 +1,13 @@
 def skipRemainingStages = false
 pipeline {
   agent any
+  environment {
+    CHAT_ID = credentials('chatid')
+    TG_TOKEN = credentials('tg_token')
+    IP = credentials('platform-test-ip')
+    USR = credentials('platform-test-user')
+  }
   stages {
-    environment {
-      CHAT_ID = credentials('chatid')
-      TG_TOKEN = credentials('tg_token')
-      IP = credentials('platform-test-ip')
-      USR = credentials('platform-test-user')
-    }
     stage('Build') {
       steps {
         withCredentials([usernamePassword(credentialsId: 'docker-hub', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
