@@ -1,8 +1,9 @@
-#!/bin/sh
+#!/bin/bash
 set +x
 #ssh key
 cat $key > sshkey
 chmod 600 sshkey
+statusCode=1
 APP="lora-tb-connector-prod"
 TSTAMP=$(date +%Y.%m.%d-%H.%M.%S)
 TSSRV="$TSTAMP $APP:"
@@ -17,8 +18,7 @@ curl -s -X POST $URL -d $CHAT -d "text=$Msg"
 docker login -u $USERNAME -p $PASSWORD
 docker build -t smartcommunitylab/lora-tb-connector:$RELEASE --build-arg VER=$RELEASE .
 statusCode=$?
-if [ $statusCode -eq 0 ]
-then
+if [[ $statusCode -eq 0 ]]; then
   Msg="$TSSRV Immagine Docker creata con successo"
   curl -s -X POST $URL -d $CHAT -d "text=$Msg"
 else

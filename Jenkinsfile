@@ -14,9 +14,7 @@ pipeline {
         withCredentials([usernamePassword(credentialsId: 'docker-hub', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
           script {
             rc = sh(script: "./build.sh", returnStatus: true)
-            // check exit code
             sh "echo \"exit code is : ${rc}\""
-
             if (rc != 0)
             {
                 sh "echo 'exit code is NOT zero'"
@@ -38,12 +36,29 @@ pipeline {
         echo 'Testing..'
         withCredentials(bindings: [sshUserPrivateKey(credentialsId: 'jk_dev', keyFileVariable: 'key')]) {
           withCredentials([file(credentialsId: 'lora-tb-connector-env', variable: 'env')]){
-            sh ('./test.sh')
+            withCredentials([usernamePassword(credentialsId: 'docker-hub', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+              script {
+                rc = sh(script: "./test.sh", returnStatus: true)
+                sh "echo \"exit code is : ${rc}\""
+                if (rc != 0)
+                {
+                    sh "echo 'exit code is NOT zero'"
+                    skipRemainingStages = true
+                }
+                else
+                {
+                    sh "echo 'exit code is zero'"
+                }
+              }
+            }
           }
         }
       }
     }
     stage('Deploy') {
+      when {
+                expression { !skipRemainingStages }
+            }
       steps {
         echo 'Deploying....'
       }

@@ -30,11 +30,13 @@ then
     echo "test ok"
     Msg="$TSSRV test ok"
     curl -s -X POST $URL -d $CHAT -d "text=$Msg"
-#    docker-compose -f lora-tb-connector-test.yaml down
+    docker login -u $USERNAME -p $PASSWORD
+    docker push smartcommunitylab/lora-tb-connector:$RELEASE
+    docker-compose -f lora-tb-connector-test.yaml down
     statusCode=0
   else
     echo "test failed"
-#    docker-compose -f lora-tb-connector-test.yaml down
+    docker-compose -f lora-tb-connector-test.yaml down
     Msg="$TSSRV test failed"
     curl -s -X POST $URL -d $CHAT -d "text=$Msg"
     statusCode=1
@@ -48,7 +50,7 @@ fi
 docker-compose -f lora-tb-connector-test.yaml down
 docker system prune -f
 docker volume prune -f
-#ssh -i sshkey -o "StrictHostKeyChecking no" $USR@$IP "sudo service lora-tb-conn start"
+ssh -i sshkey -o "StrictHostKeyChecking no" $USR@$IP "sudo service lora-tb-conn start"
 rm sshkey
 rm lora-tb-connector.env
 echo $statusCode
