@@ -17,12 +17,6 @@ pipeline {
     stage('Test') {
       steps {
         echo 'Testing..'
-        withCredentials([usernamePassword(credentialsId: 'docker-hub', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-          sh '''
-            docker login -u $USERNAME -p $PASSWORD
-            docker build -t lora-tb-connector:0.1 --build-arg=VER=0.1 .
-          '''
-        }
       }
     }
     stage('Deploy') {
