@@ -4,7 +4,7 @@ services:
     image: smartcommunitylab/lora-tb-connector:0.1
     container_name: lora-tb-connector
     ports:
-      - 5050
+      - 5050:5050
     env_file:
       - ./lora-tb-connector.env
     healthcheck:
