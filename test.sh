@@ -48,4 +48,4 @@ ssh -i sshkey -o "StrictHostKeyChecking no" $USR@$IP "sudo service lora-tb-conn 
 rm sshkey
 rm lora-tb-connector.env
 echo $statusCode
-return statusCode
+return $statusCode
