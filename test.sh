@@ -45,9 +45,9 @@ else
   Msg="$TSSRV starting containter failed"
   curl -s -X POST $URL -d $CHAT -d "text=$Msg"
 fi
-#docker-compose -f lora-tb-connector-test.yaml down
-#docker system prune -f
-#docker volume prune -f
+docker-compose -f lora-tb-connector-test.yaml down
+docker system prune -f
+docker volume prune -f
 #ssh -i sshkey -o "StrictHostKeyChecking no" $USR@$IP "sudo service lora-tb-conn start"
 rm sshkey
 rm lora-tb-connector.env
