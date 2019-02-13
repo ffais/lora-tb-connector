@@ -9,10 +9,10 @@ services:
       - ./lora-tb-connector.env
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:5050/actuator/health"]
-      interval: 15s
+      interval: 10s
       timeout: 10s
       retries: 3
-      start_period: 40s
+      start_period: 15s
   tb-mongo:
     image: mongo
     restart: always
