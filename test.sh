@@ -18,14 +18,14 @@ curl -s -X POST $URL -d $CHAT -d "text=$Msg"
 #curl -s — max-time $TimeLim -d "chat_id=$CHAT_ID&disable_web_page_preview=1&text=$Msg" "https://api.telegram.org/bot$TG_TOKEN/sendMessage"
 ssh -i sshkey -o "StrictHostKeyChecking no" $USR@$IP "sudo service lora-tb-conn stop"
 docker-compose -f lora-tb-connector-test.yaml up -d
-while [[ docker inspect lora-tb-connector --format='{{.State.Health.Status}}' == 'starting' ]]; do
+while [[ $(docker inspect lora-tb-connector --format='{{.State.Health.Status}}') == 'starting' ]]; do
   echo "starting in progress"
 done
-if [ docker inspect lora-tb-connector --format='{{.State.Health.Status}}' == 'healthy' ]
+if [[ $(docker inspect lora-tb-connector --format='{{.State.Health.Status}}') == 'healthy' ]]
 then
   echo "container started"
   appstate=$(curl -s localhost:5050/actuator/health | jq -r '.status')
-  if [[ $appstate == "UP" ]]; then
+  if [ $appstate == "UP" ]; then
     echo "test ok"
     Msg="$TSSRV test ok"
     curl -s -X POST $URL -d $CHAT -d "text=$Msg"
@@ -44,6 +44,7 @@ else
   Msg="$TSSRV starting containter failed"
   curl -s -X POST $URL -d $CHAT -d "text=$Msg"
 fi
+docker system prune
 ssh -i sshkey -o "StrictHostKeyChecking no" $USR@$IP "sudo service lora-tb-conn start"
 rm sshkey
 rm lora-tb-connector.env
