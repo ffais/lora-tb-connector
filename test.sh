@@ -25,7 +25,7 @@ if [[ $(docker inspect lora-tb-connector --format='{{.State.Health.Status}}') ==
 then
   echo "container started"
   appstate=$(curl -s localhost:5050/actuator/health | jq -r '.status')
-  if [ $appstate == "UP" ]; then
+  if [[ $appstate == 'UP' ]]; then
     echo "test ok"
     Msg="$TSSRV test ok"
     curl -s -X POST $URL -d $CHAT -d "text=$Msg"
