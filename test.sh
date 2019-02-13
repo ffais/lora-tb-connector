@@ -5,6 +5,7 @@ cat $key > sshkey
 cat $env > lora-tb-connector.env
 chmod 600 lora-tb-connector.env
 chmod 600 sshkey
+statusCode=1
 APP="lora-tb-connector-prod"
 TSTAMP=$(date +%Y.%m.%d-%H.%M.%S)
 TSSRV="$TSTAMP $APP:"
