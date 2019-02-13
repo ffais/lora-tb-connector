@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 set +x
 #ssh key
 cat $key > sshkey
@@ -18,7 +18,7 @@ if [[ $? -eq 0 ]]; then
   Msg="$TSSRV Aggiornamento completato"
   curl -s -X POST $URL -d $CHAT -d "text=$Msg"
 else
-  Msg="$TSSRV Aggiornamento non riuscito $?"
+  Msg="$TSSRV Aggiornamento non riuscito"
   curl -s -X POST $URL -d $CHAT -d "text=$Msg"
 fi
 rm sshkey
