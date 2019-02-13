@@ -16,7 +16,6 @@ curl -s -X POST $URL -d $CHAT -d "text=$Msg"
 #ssh -i sshkey -o "StrictHostKeyChecking no" $USR@$IP "sudo service lora-tb-conn stop && /home/$USR/sources/deploy-lora-tb-conn.sh && echo VER=${RELEASE} > /home/dev/lora-tb-connector-env && sudo service lora-tb-conn start "
 docker login -u $USERNAME -p $PASSWORD
 docker build -t smartcommunitylab/lora-tb-connector:$RELEASE --build-arg VER=$RELEASE .
-docker image prune
 statusCode=$?
 if [ $statusCode -eq 0 ]
 then
