@@ -5,6 +5,7 @@ pipeline {
     CHAT_ID = credentials('chatid')
     TG_TOKEN = credentials('tg_token')
     IP = credentials('platform-test-ip')
+    INTIP = credentials('platform-test-int-ip')
     USR = credentials('platform-test-user')
   }
   stages {
