@@ -15,22 +15,34 @@ URL="https://api.telegram.org/bot${TG_TOKEN}/sendMessage"
 CHAT="chat_id=${CHAT_ID}"
 curl -s -X POST $URL -d $CHAT -d "text=$Msg"
 #curl -s — max-time $TimeLim -d "chat_id=$CHAT_ID&disable_web_page_preview=1&text=$Msg" "https://api.telegram.org/bot$TG_TOKEN/sendMessage"
-#ssh -i sshkey -o "StrictHostKeyChecking no" $USR@$IP "sudo service lora-tb-conn stop && /home/$USR/sources/deploy-lora-tb-conn.sh && echo VER=${RELEASE} > /home/dev/lora-tb-connector-env && sudo service lora-tb-conn start "
+ssh -i sshkey -o "StrictHostKeyChecking no" $USR@$IP "sudo service lora-tb-conn stop"
 docker-compose -f lora-tb-connector-test.yaml up -d
-docker ps
-if [ $? -ne 0 ]
+while [[ docker inspect lora-tb-connector --format='{{.State.Health.Status}}' == 'starting' ]]; do
+  echo "starting in progress"
+done
+if [ docker inspect lora-tb-connector --format='{{.State.Health.Status}}' == 'healthy' ]
 then
-  docker-compose -f lora-tb-connector-test.yaml down
-fi
-statusCode=$?
-if [ $statusCode -eq 0 ]
-then
-  Msg="$TSSRV Immagine Docker creata con successo"
-  curl -s -X POST $URL -d $CHAT -d "text=$Msg"
+  echo "container started"
+  appstate=$(curl -s localhost:5050/actuator/health | jq -r '.status')
+  if [[ $appstate == "UP"]]; then
+    echo "test ok"
+    Msg="$TSSRV test ok"
+    curl -s -X POST $URL -d $CHAT -d "text=$Msg"
+    docker-compose -f lora-tb-connnector-test-yaml down
+    statusCode=0
+  else
+    echo "test failed"
+    docker-compose -f lora-tb-connnector-test-yaml down
+    Msg="$TSSRV test failed"
+    curl -s -X POST $URL -d $CHAT -d "text=$Msg"
+    statusCode=1
+  fi
 else
-  Msg="$TSSRV Immagine Docker creazione errore $?"
+  echo "starting containter failed"
+  Msg="$TSSRV starting containter failed"
   curl -s -X POST $URL -d $CHAT -d "text=$Msg"
 fi
+ssh -i sshkey -o "StrictHostKeyChecking no" $USR@$IP "sudo service lora-tb-conn start"
 rm sshkey
 rm lora-tb-connector.env
 echo $statusCode
