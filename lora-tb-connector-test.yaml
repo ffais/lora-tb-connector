@@ -1,7 +1,7 @@
 version: "3.7"
 services:
   lora-tb-connector:
-    image: smartcommunitylab/lora-tb-connector:0.1
+    image: smartcommunitylab/lora-tb-connector:latest
     container_name: lora-tb-connector
     ports:
       - 5050:5050

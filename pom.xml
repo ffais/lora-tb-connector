@@ -6,7 +6,7 @@
 
 	<groupId>it.smartcommunitylab</groupId>
 	<artifactId>lora-tb-connector</artifactId>
-	<version>0.2</version>
+	<version>0.1</version>
 	<packaging>jar</packaging>
 
 	<name>lora-tb-connector</name>

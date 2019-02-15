@@ -30,7 +30,9 @@ then
     Msg="$TSSRV test ok"
     curl -s -X POST $URL -d $CHAT -d "text=$Msg"
     docker login -u $USERNAME -p $PASSWORD
+    docker tag smartcommunitylab/lora-tb-connector:latest smartcommunitylab/lora-tb-connector:$RELEASE
     docker push smartcommunitylab/lora-tb-connector:$RELEASE
+    docker push smartcommunitylab/lora-tb-connector:latest
     docker-compose -f lora-tb-connector-test.yaml down
     statusCode=0
   else

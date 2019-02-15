@@ -16,7 +16,7 @@ curl -s -X POST $URL -d $CHAT -d "text=$Msg"
 #curl -s — max-time $TimeLim -d "chat_id=$CHAT_ID&disable_web_page_preview=1&text=$Msg" "https://api.telegram.org/bot$TG_TOKEN/sendMessage"
 #ssh -i sshkey -o "StrictHostKeyChecking no" $USR@$IP "sudo service lora-tb-conn stop && /home/$USR/sources/deploy-lora-tb-conn.sh && echo VER=${RELEASE} > /home/dev/lora-tb-connector-env && sudo service lora-tb-conn start "
 docker login -u $USERNAME -p $PASSWORD
-docker build -t smartcommunitylab/lora-tb-connector:$RELEASE --build-arg VER=$RELEASE .
+docker build -t smartcommunitylab/lora-tb-connector:latest --build-arg VER=$RELEASE .
 statusCode=$?
 if [[ $statusCode -eq 0 ]]; then
   Msg="$TSSRV Immagine Docker creata con successo"
