@@ -10,7 +10,6 @@ APP="lora-tb-connector-prod"
 TSTAMP=$(date +%Y.%m.%d-%H.%M.%S)
 TSSRV="$TSTAMP $APP:"
 RELEASE=$(sed -E -n '/<artifactId>(lora-tb-connector)<\/artifactId>.*/{n;p}' pom.xml | grep -Po '\d\.\d')
-echo $RELEASE
 Msg="$TSSRV Build in corso"
 URL="https://api.telegram.org/bot${TG_TOKEN}/sendMessage"
 CHAT="chat_id=${CHAT_ID}"
@@ -48,7 +47,7 @@ else
   curl -s -X POST $URL -d $CHAT -d "text=$Msg"
 fi
 docker-compose -f lora-tb-connector-test.yaml down
-docker system prune -f
+docker system prune -a -f
 docker volume prune -f
 ssh -i sshkey -o "StrictHostKeyChecking no" $USR@$IP "sudo service lora-tb-conn start"
 rm sshkey

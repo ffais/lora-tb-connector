@@ -31,7 +31,7 @@ pipeline {
     stage('Test') {
       when {
                 expression { !skipRemainingStages }
-            }
+      }
       steps {
         echo 'Testing..'
         withCredentials(bindings: [sshUserPrivateKey(credentialsId: 'jk_dev', keyFileVariable: 'key')]) {
@@ -58,9 +58,23 @@ pipeline {
     stage('Deploy') {
       when {
                 expression { !skipRemainingStages }
-            }
+      }
       steps {
-        echo 'Deploying....'
+        withCredentials(bindings: [sshUserPrivateKey(credentialsId: 'jk_dev', keyFileVariable: 'key')]) {
+          script {
+            rc = sh(script: "./deploy.sh", returnStatus: true)
+            sh "echo \"exit code is : ${rc}\""
+            if (rc != 0)
+            {
+                sh "echo 'exit code is NOT zero'"
+                skipRemainingStages = true
+            }
+            else
+            {
+                sh "echo 'exit code is zero'"
+            }
+          }
+        }
       }
     }
   }
