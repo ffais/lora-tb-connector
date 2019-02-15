@@ -13,7 +13,7 @@ URL="https://api.telegram.org/bot${TG_TOKEN}/sendMessage"
 CHAT="chat_id=${CHAT_ID}"
 curl -s -X POST $URL -d $CHAT -d "text=$Msg"
 ssh -i sshkey -o "StrictHostKeyChecking no" $USR@$INTIP "kubectl set image deployments/lora-tb-connector lora-tb-connector=smartcommunitylab/lora-tb-connector:$RELEASE"
-ssh -i sshkey -o "StrictHostKeyChecking no" $USR@$INTIP "kubectl get deployments lora-tb-connector -o json > dpstatus"
+ssh -i sshkey -o "StrictHostKeyChecking no" $USR@$INTIP "kubectl get deployments lora-tb-connector -o json" > dpstatus
 availableReplicas=$(cat dpstatus | jq -r '.status.availableReplicas')
 updatedReplicas=$(cat dpstatus | jq -r '.status.updatedReplicas')
 readyReplicas=$(cat dpstatus | jq -r '.status.readyReplicas' )
