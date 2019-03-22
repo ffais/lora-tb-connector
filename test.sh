@@ -9,12 +9,11 @@ statusCode=1
 APP="lora-tb-connector-prod"
 TSTAMP=$(date +%Y.%m.%d-%H.%M.%S)
 TSSRV="$TSTAMP $APP:"
-RELEASE=$(sed -E -n '/<artifactId>(lora-tb-connector)<\/artifactId>.*/{n;p}' pom.xml | grep -Po '\d\.\d')
+RELEASE=$(sed -E -n '/<artifactId>(lora-tb-connector)<\/artifactId>.*/{n;p}' pom.xml | grep -Eo '\d\.\d')
 Msg="$TSSRV Build in corso"
 URL="https://api.telegram.org/bot${TG_TOKEN}/sendMessage"
 CHAT="chat_id=${CHAT_ID}"
 curl -s -X POST $URL -d $CHAT -d "text=$Msg"
-#curl -s — max-time $TimeLim -d "chat_id=$CHAT_ID&disable_web_page_preview=1&text=$Msg" "https://api.telegram.org/bot$TG_TOKEN/sendMessage"
 ssh -i sshkey -o "StrictHostKeyChecking no" $USR@$IP "sudo service lora-tb-conn stop"
 docker-compose -f lora-tb-connector-test.yaml up -d
 while [[ $(docker inspect lora-tb-connector --format='{{.State.Health.Status}}') == 'starting' ]]; do
@@ -44,7 +43,7 @@ then
   fi
 else
   echo "starting containter failed"
-#  docker-compose -f lora-tb-connector-test.yaml down
+  docker-compose -f lora-tb-connector-test.yaml down
   Msg="$TSSRV starting containter failed"
   curl -s -X POST $URL -d $CHAT -d "text=$Msg"
 fi
